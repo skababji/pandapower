@@ -77,14 +77,14 @@ def estimate(net, algorithm='wls',
     if algorithm not in ALGORITHM_MAPPING:
         raise UserWarning("Algorithm {} is not a valid estimator".format(algorithm))
 
-    se = StateEstimation(net, tolerance, maximum_iterations, algorithm=algorithm)
+    smk_se = StateEstimation(net, tolerance, maximum_iterations, algorithm=algorithm)
     v_start, delta_start = _initialize_voltage(net, init, calculate_voltage_angles)
-    success=se.estimate(v_start=v_start, delta_start=delta_start,
+    success=smk_se.estimate(v_start=v_start, delta_start=delta_start,
                 calculate_voltage_angles=calculate_voltage_angles,
                 zero_injection=zero_injection,
                 fuse_buses_with_bb_switch=fuse_buses_with_bb_switch, **opt_vars)
 
-    return se, success
+    return smk_se, success
 
 
 def remove_bad_data(net, init='flat', tolerance=1e-6, maximum_iterations=10,
